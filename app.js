@@ -2,7 +2,7 @@ if (process.env.NODE_ENV != "production") {
   require('dotenv').config();
   console.log(process.env.CLOUD_NAME);
 }
-
+const ExpressError = require("./utils/expressError.js")
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -114,7 +114,7 @@ app.all("*", (req, res, next) => {
 app.use((err, req, res, next) => {
   console.log(err);
   const { statusCode = 500, message = "Something went wrong!" } = err;
-  res.status(statusCode).render("error.ejs", { message });
+  res.status(statusCode).render("./layouts/error.ejs", { message });
   // res.status(statusCode).send(message);
 });
 
